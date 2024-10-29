@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: OperatorService
+  datasource:
+    url: 'jdbc:postgesql://localhost:5432/mydatabase'
+    username: 'myuser'
+    password: 'secret'
+  jpa:
+    hibernate:
+      ddl-auto: create
+      format_sql: true
+    show-sql: true
