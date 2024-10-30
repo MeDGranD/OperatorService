@@ -20,7 +20,7 @@ public class RequestsService {
         this.requestsRepository = requestsRepository;
     }
 
-    List<Request> getAllRequests(){
+    public List<Request> getAllRequests(){
         return StreamSupport
                 .stream(
                         this.requestsRepository.findAll().spliterator(), false
@@ -28,27 +28,27 @@ public class RequestsService {
                 .toList();
     }
 
-    List<Request> getAllRequestsByUser(User user){
+    public List<Request> getAllRequestsByUser(User user){
         return this.requestsRepository.findByUser(user);
     }
 
-    Optional<Request> getRequestById(Long id){
+    public Optional<Request> getRequestById(Long id){
         return this.requestsRepository.findById(id);
     }
 
-    List<Request> getAllRequestsByType(String type){
+    public List<Request> getAllRequestsByType(String type){
         return this.getAllRequests()
                 .stream()
                 .filter(request -> request.getType().getType().equals(type))
                 .toList();
     }
 
-    Optional<Request> createRequest(Request request){
+    public Optional<Request> createRequest(Request request){
         this.requestsRepository.save(request);
         return Optional.of(request);
     }
 
-    Optional<Request> updateRequest(Request request){
+    public Optional<Request> updateRequest(Request request){
 
         if(!this.requestsRepository.existsById(request.getId())){
             return Optional.empty();
@@ -59,7 +59,7 @@ public class RequestsService {
 
     }
 
-    Optional<Request> deleteRequest(Request request){
+    public Optional<Request> deleteRequest(Request request){
         if(!this.requestsRepository.existsById(request.getId())){
             return Optional.empty();
         }
@@ -68,7 +68,7 @@ public class RequestsService {
         return Optional.of(request);
     }
 
-    Optional<Request> deleteRequestById(long id){
+    public Optional<Request> deleteRequestById(long id){
         if(!this.requestsRepository.existsById(id)){
             return Optional.empty();
         }

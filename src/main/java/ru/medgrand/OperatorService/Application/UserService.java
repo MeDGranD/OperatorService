@@ -19,7 +19,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    List<User> getAllUsers(){
+    public List<User> getAllUsers(){
         return StreamSupport
                 .stream(
                         this.userRepository.findAll().spliterator(), false
@@ -27,27 +27,27 @@ public class UserService {
                 .toList();
     }
 
-    Optional<User> getUserById(Long id){
+    public Optional<User> getUserById(Long id){
         return this.userRepository.findById(id);
     }
 
-    Optional<User> getUserByUsername(String username){
+    public Optional<User> getUserByUsername(String username){
         User user = this.userRepository.findByUsername(username);
         return user == null ? Optional.empty() : Optional.of(user);
     }
 
-    List<User> getAllUsersByRole(String role){
+    public List<User> getAllUsersByRole(String role){
         return this.getAllUsers().stream()
                 .filter(user -> user.getRole().getRole().equals(role))
                 .toList();
     }
 
-    Optional<User> createUser(User user){
+    public Optional<User> createUser(User user){
         this.userRepository.save(user);
         return Optional.of(user);
     }
 
-    Optional<User> updateUser(User user){
+    public Optional<User> updateUser(User user){
 
         if(!this.userRepository.existsById(user.getId())){
             return Optional.empty();
@@ -58,7 +58,7 @@ public class UserService {
 
     }
 
-    Optional<User> deleteUser(User user){
+    public Optional<User> deleteUser(User user){
 
         if(!this.userRepository.existsById(user.getId())){
             return Optional.empty();
@@ -69,7 +69,7 @@ public class UserService {
 
     }
 
-    Optional<User> deleteUserById(Long id){
+    public Optional<User> deleteUserById(Long id){
 
         if(!this.userRepository.existsById(id)){
             return Optional.empty();

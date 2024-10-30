@@ -23,7 +23,7 @@ public class AgreementsService {
         this.agreementsRepository = agreementsRepository;
     }
 
-    List<Agreement> getAllAgreements(){
+    public List<Agreement> getAllAgreements(){
         return StreamSupport
                 .stream(
                         this.agreementsRepository.findAll().spliterator(), false
@@ -31,11 +31,11 @@ public class AgreementsService {
                 .toList();
     }
 
-    List<Agreement> getAllAgreementsByUser(User user){
+    public List<Agreement> getAllAgreementsByUser(User user){
         return this.agreementsRepository.findByUser(user);
     }
 
-    List<Agreement> getAllAgreementsByTarif(Tarif tarif){
+    public List<Agreement> getAllAgreementsByTarif(Tarif tarif){
         return this.getAllAgreements()
                 .stream()
                 .filter(agreement -> {
@@ -49,30 +49,30 @@ public class AgreementsService {
                 .toList();
     }
 
-    List<Agreement> getAgreementsUnderCreationDate(LocalDateTime date){
+    public List<Agreement> getAgreementsUnderCreationDate(LocalDateTime date){
         return this.getAllAgreements()
                 .stream()
                 .filter(agreement -> agreement.getCreationDate().isBefore(date))
                 .toList();
     }
 
-    List<Agreement> getAgreementsUpperDate(LocalDateTime date){
+    public List<Agreement> getAgreementsUpperDate(LocalDateTime date){
         return this.getAllAgreements()
                 .stream()
-                .filter(agreement -> agreement.getCreationDate().isAfter(date))
+                .filter(agreement -> agreement.getEndTime().isAfter(date))
                 .toList();
     }
 
-    Optional<Agreement> getAgreementById(Long id){
+    public Optional<Agreement> getAgreementById(Long id){
         return this.agreementsRepository.findById(id);
     }
 
-    Optional<Agreement> createAgreement(Agreement agreement){
+    public Optional<Agreement> createAgreement(Agreement agreement){
         this.agreementsRepository.save(agreement);
         return Optional.of(agreement);
     }
 
-    Optional<Agreement> updateAgreement(Agreement agreement){
+    public Optional<Agreement> updateAgreement(Agreement agreement){
         if(!this.agreementsRepository.existsById(agreement.getId())){
             return Optional.empty();
         }
@@ -81,7 +81,7 @@ public class AgreementsService {
         return Optional.of(agreement);
     }
 
-    Optional<Agreement> deleteAgreemment(Agreement agreement){
+    public Optional<Agreement> deleteAgreemment(Agreement agreement){
         if(!this.agreementsRepository.existsById(agreement.getId())){
             return Optional.empty();
         }
@@ -90,7 +90,7 @@ public class AgreementsService {
         return Optional.of(agreement);
     }
 
-    Optional<Agreement> deleteAgreemmentById(long id){
+    public Optional<Agreement> deleteAgreemmentById(long id){
         if(!this.agreementsRepository.existsById(id)){
             return Optional.empty();
         }

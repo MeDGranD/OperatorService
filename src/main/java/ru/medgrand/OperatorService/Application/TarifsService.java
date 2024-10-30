@@ -19,11 +19,11 @@ public class TarifsService {
         this.tarifsRepository = tarifsRepository;
     }
 
-    Optional<Tarif> getTarifById(Long id){
+    public Optional<Tarif> getTarifById(Long id){
         return this.tarifsRepository.findById(id);
     }
 
-    List<Tarif> getAllTarifs(){
+    public List<Tarif> getAllTarifs(){
         return StreamSupport
                 .stream(
                         this.tarifsRepository.findAll().spliterator(), false
@@ -31,7 +31,7 @@ public class TarifsService {
                 .toList();
     }
 
-    List<Tarif> getAllTarifsUnderCost(Long cost){
+    public List<Tarif> getAllTarifsUnderCost(Long cost){
 
         List<Tarif> tarifs = this.getAllTarifs();
 

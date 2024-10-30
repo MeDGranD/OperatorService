@@ -20,7 +20,7 @@ public class ReviewsService {
         this.reviewsRepository = reviewsRepository;
     }
 
-    List<Review> getAllReviews(){
+    public List<Review> getAllReviews(){
 
         return StreamSupport
                 .stream(
@@ -30,27 +30,27 @@ public class ReviewsService {
 
     }
 
-    List<Review> getAllReviewsByUser(User user){
+    public List<Review> getAllReviewsByUser(User user){
         return this.reviewsRepository.findByUser(user);
     }
 
-    Optional<Review> getReviewById(Long id){
+    public Optional<Review> getReviewById(Long id){
         return this.reviewsRepository.findById(id);
     }
 
-    List<Review> getAllReviewsByUpperStarts(long stars){
+    public List<Review> getAllReviewsByUpperStarts(long stars){
         return this.getAllReviews()
                 .stream()
                 .filter(review -> review.getStars() >= stars)
                 .toList();
     }
 
-    Optional<Review> createReview(Review review){
+    public Optional<Review> createReview(Review review){
         this.reviewsRepository.save(review);
         return Optional.of(review);
     }
 
-    Optional<Review> updateReview(Review review){
+    public Optional<Review> updateReview(Review review){
          if(!this.reviewsRepository.existsById(review.getId())){
              return Optional.empty();
          }
@@ -59,7 +59,7 @@ public class ReviewsService {
          return Optional.of(review);
     }
 
-    Optional<Review> deleteReview(Review review){
+    public Optional<Review> deleteReview(Review review){
         if(!this.reviewsRepository.existsById(review.getId())){
             return Optional.empty();
         }
@@ -68,7 +68,7 @@ public class ReviewsService {
         return Optional.of(review);
     }
 
-    Optional<Review> deleteReviewById(Long id){
+    public Optional<Review> deleteReviewById(Long id){
         if(!this.reviewsRepository.existsById(id)){
             return Optional.empty();
         }
